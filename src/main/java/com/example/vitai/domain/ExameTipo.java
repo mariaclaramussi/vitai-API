@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,11 +40,7 @@ public class ExameTipo {
 
     private String mnemonico;
 
-    @Column(name = "tipo_exame")
-    // patologia clinica, anatomia patologica ou imagem
-    private String tipoExame;
-
-    @Column(name = "intervalo_pedidos")
+    @Column(name = "intervalo_pedidos") //hora
     private int intervaloPedidos;
 
     @Column(name = "exige_laudo")
@@ -52,8 +49,19 @@ public class ExameTipo {
     @Column(name = "necessita_preparo")
     private boolean necessitaPreparo;
 
-    private LocalDateTime timTimestamp;
-
     @Column(name = "data_exclusao")
     private LocalDateTime dataExclusao;
+
+    @Version
+    private LocalDateTime timTimestamp;
+
+    // varios ExameTipoItem pertencem ao mesmo Material
+    @ManyToOne
+    @JoinColumn(name = "material_id", nullable = false)
+    private Material codTipoMaterial;
+
+    // varios ExameTipoItem pertencem a um método
+    @ManyToOne
+    @JoinColumn (name = "metodo_id", nullable = false)
+    private Metodo codTipoMetodo;
 }

@@ -1,6 +1,7 @@
 package com.example.vitai.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,23 +45,13 @@ public class ExameTipoItem {
     @Column(name = "valor_referencia")
     private String valorReferencia;
 
-    //classe material
-    // varios ExameTipoItem pertencem ao mesmo Material
-    // NAO DEVERIA FAZER PARTE DE EXAMETIPO?
-    // private Material codTipoMaterial;
-
-    // varios ExameTipoItem pertencem a um método
-    // NAO DEVERIA FAZER PARTE DE EXAMETIPO?
-    @ManyToOne
-    @JoinColumn (name = "metodo_id", nullable = false)
-    private Metodo codTipoMetodo;
-
     // SubExameTipo = Dominio do item = Grupo
     // varios ExameTipoItem pertencem a um SubExameTipo
-    @ManyToOne
+    @OneToMany
     @JoinColumn (name = "sub_exame_tipo_id", nullable = false)
-    private SubExameTipo codSubExameTipo;
+    private List<SubExameTipo> codSubExameTipo;
 
+    @Version
     private LocalDateTime timTimestamp;
 
 }
