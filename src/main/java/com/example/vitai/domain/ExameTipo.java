@@ -40,6 +40,7 @@ public class ExameTipo {
     private String mnemonico;
 
     @Column(name = "tipo_exame")
+    // patologia clinica, anatomia patologica ou imagem
     private String tipoExame;
 
     @Column(name = "intervalo_pedidos")
