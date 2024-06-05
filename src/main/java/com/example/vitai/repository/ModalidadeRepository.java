@@ -8,4 +8,5 @@ import com.example.vitai.domain.Modalidade;
 @Repository
 public interface ModalidadeRepository extends JpaRepository<Modalidade, Integer> {
 
+    Modalidade findByNome(String nome);
 }

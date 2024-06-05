@@ -8,4 +8,5 @@ import com.example.vitai.domain.Secao;
 @Repository
 public interface SecaoRepository extends JpaRepository<Secao, Integer>{
 
+    Secao findByNome(String nome);
 }

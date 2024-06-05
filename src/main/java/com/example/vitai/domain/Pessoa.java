@@ -40,7 +40,7 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 
-    @Column(name = "numero_pulseira")
+    @Column(name = "numero_pulseira", unique = true)
     private int numeroPulseira;
 
     private String sexo;
@@ -48,6 +48,6 @@ public class Pessoa {
     @Column(insertable=false, updatable=false)
     private String tipo; //medico, atendente, paciente
 
-    @Version //hibernate controla o versionamento dos objetos
+    @Version
     private LocalDateTime timTimestamp;
 }
