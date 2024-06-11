@@ -3,7 +3,6 @@ package com.example.vitai.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,10 @@ import com.example.vitai.dto.ExameTipo.ExameTipoResponseDTO;
 import com.example.vitai.services.ExameTipoService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/exames")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -48,4 +49,10 @@ public class ExameTipoController {
 
         return ResponseEntity.ok(categoria);
     }
+
+    // @GetMapping("/{id}/sub-exames")
+    // public String getSubExamesOfExameTipo(@PathVariable String id) {
+    //     return new String();
+    // }
+    
 }

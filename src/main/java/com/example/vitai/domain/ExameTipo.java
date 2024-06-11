@@ -1,6 +1,10 @@
 package com.example.vitai.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -28,7 +33,7 @@ public class ExameTipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String nome;
 
     @Column(name = "prazo_execucao")
@@ -40,7 +45,7 @@ public class ExameTipo {
 
     private String mnemonico;
 
-    @Column(name = "intervalo_pedidos") //hora
+    @Column(name = "intervalo_pedidos") // hora
     private int intervaloPedidos;
 
     @Column(name = "exige_laudo")
@@ -52,9 +57,6 @@ public class ExameTipo {
     @Column(name = "data_exclusao")
     private LocalDateTime dataExclusao;
 
-    @Version
-    private LocalDateTime timTimestamp;
-
     // varios ExameTipoItem pertencem ao mesmo Material
     @ManyToOne
     @JoinColumn(name = "material_id", nullable = false)
@@ -62,6 +64,22 @@ public class ExameTipo {
 
     // varios ExameTipoItem pertencem a um método
     @ManyToOne
-    @JoinColumn (name = "metodo_id", nullable = false)
+    @JoinColumn(name = "metodo_id", nullable = false)
     private Metodo codTipoMetodo;
+
+    @OneToMany(mappedBy = "exameTipo")
+    @JsonManagedReference
+    private List<SubExameTipo> subExamesTipoList;
+
+    @Version
+    private LocalDateTime timTimestamp;
+
+    public void addSubExameTipo(SubExameTipo subExamesTipo) {
+        if (subExamesTipoList == null)
+            subExamesTipoList = new ArrayList<SubExameTipo>();
+
+        subExamesTipo.setExameTipo(this);
+        subExamesTipoList.add(subExamesTipo);
+    }
+
 }
