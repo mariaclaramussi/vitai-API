@@ -1,9 +1,11 @@
 package com.example.vitai.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +34,7 @@ public class SubExameTipo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String nome;
 
     private String descricao;
@@ -41,10 +43,20 @@ public class SubExameTipo {
     private LocalDateTime timTimestamp;
 
     @ManyToOne
-    @JoinColumn (name = "exame_tipo_id", nullable = false)
+    @JoinColumn(name = "exame_tipo_id", nullable = false)
     @JsonBackReference
     private ExameTipo exameTipo;
 
-    @OneToMany(mappedBy = "codSubExameTipo")
-    private List<ExameTipoItem> exameTipoItems;
+    @OneToMany(mappedBy = "subExameTipo")
+    @JsonManagedReference
+    private List<ExameTipoItem> exameTipoItemsList;
+
+    public void addExameTipoItem(ExameTipoItem item) {
+        if (exameTipoItemsList == null)
+        exameTipoItemsList = new ArrayList<ExameTipoItem>();
+
+        item.setSubExameTipo(this);
+        exameTipoItemsList.add(item);
+    }
+
 }

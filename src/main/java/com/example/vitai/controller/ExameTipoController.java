@@ -1,6 +1,7 @@
 package com.example.vitai.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.vitai.domain.ExameTipo;
+import com.example.vitai.domain.SubExameTipo;
 import com.example.vitai.dto.ExameTipo.ExameTipoIdDTO;
 import com.example.vitai.dto.ExameTipo.ExameTipoRequestDTO;
 import com.example.vitai.dto.ExameTipo.ExameTipoResponseDTO;
@@ -50,9 +52,12 @@ public class ExameTipoController {
         return ResponseEntity.ok(categoria);
     }
 
-    // @GetMapping("/{id}/sub-exames")
-    // public String getSubExamesOfExameTipo(@PathVariable String id) {
-    //     return new String();
-    // }
+    @GetMapping("/{id}/sub-exames")
+    public List<SubExameTipo> getSubExamesOfExameTipo(@PathVariable String id) {
+        Optional<List<SubExameTipo>> subExamesFromExameTipoList = this.exameTipoService.getSubExamesOfExameTipo(id);
+        if (subExamesFromExameTipoList.isPresent())
+            return subExamesFromExameTipoList.get();
+        return null;
+    }
     
 }

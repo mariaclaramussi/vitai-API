@@ -1,6 +1,7 @@
 package com.example.vitai.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import com.example.vitai.domain.ExameCategoria;
 import com.example.vitai.domain.ExameTipo;
 import com.example.vitai.domain.Material;
 import com.example.vitai.domain.Metodo;
+import com.example.vitai.domain.SubExameTipo;
 import com.example.vitai.dto.ExameTipo.ExameTipoIdDTO;
 import com.example.vitai.dto.ExameTipo.ExameTipoRequestDTO;
 import com.example.vitai.dto.ExameTipo.ExameTipoResponseDTO;
@@ -15,6 +17,7 @@ import com.example.vitai.repository.ExameCategoriaRepository;
 import com.example.vitai.repository.ExameTipoRepository;
 import com.example.vitai.repository.MaterialRepository;
 import com.example.vitai.repository.MetodoRepository;
+import com.example.vitai.repository.SubExameTipoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +28,7 @@ public class ExameTipoService {
     private final ExameCategoriaRepository exameCategoriaRepository;
     private final MaterialRepository materialRepository;
     private final MetodoRepository metodoRepository;
+    private final SubExameTipoRepository subExameTipoRepository;
 
     public List<ExameTipo> getExames() {
         return exameTipoRepository.findAll();
@@ -59,5 +63,9 @@ public class ExameTipoService {
         ExameTipo exameTipo = this.exameTipoRepository.findById(Integer.parseInt(id)).get();
 
         return new ExameTipoResponseDTO(exameTipo);
+    }
+
+    public Optional<List<SubExameTipo>> getSubExamesOfExameTipo(String id) {
+        return subExameTipoRepository.findAllByExameTipoId(Integer.parseInt(id));
     }
 }

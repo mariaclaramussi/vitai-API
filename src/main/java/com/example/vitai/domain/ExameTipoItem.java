@@ -2,6 +2,8 @@ package com.example.vitai.domain;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class ExameTipoItem {
 
     @ManyToOne
     @JoinColumn (name = "exame_tipo_id", nullable = false)
+    @JsonBackReference
     private ExameTipo codExameTipo;
 
     @Column(name = "valor_referencia")
@@ -45,7 +48,8 @@ public class ExameTipoItem {
 
     @ManyToOne
     @JoinColumn(name = "sub_exame_tipo_id")
-    private SubExameTipo codSubExameTipo;
+    @JsonBackReference
+    private SubExameTipo subExameTipo;
 
     @Version
     private LocalDateTime timTimestamp;
