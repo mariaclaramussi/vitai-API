@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.example.vitai.domain.ExameTipoItem;
 
 @Repository
-public interface ExameTipoItemRepository extends JpaRepository<ExameTipoItem, Integer>{
+public interface ExameTipoItemRepository extends JpaRepository<ExameTipoItem, Integer> {
 
     Optional<List<ExameTipoItem>> findAllBySubExameTipoId(Integer id);
+
+    @SuppressWarnings("null")
+    Optional<ExameTipoItem> findById(Integer id);
 }

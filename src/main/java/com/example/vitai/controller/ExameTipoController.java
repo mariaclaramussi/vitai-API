@@ -3,6 +3,7 @@ package com.example.vitai.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,9 +48,9 @@ public class ExameTipoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ExameTipoResponseDTO> getExameTipo(@PathVariable String id) {
-        ExameTipoResponseDTO categoria = this.exameTipoService.getExameTipoById(id);
+        ExameTipoResponseDTO exameTipo = this.exameTipoService.getExameTipoById(id);
 
-        return ResponseEntity.ok(categoria);
+        return new ResponseEntity<ExameTipoResponseDTO>(exameTipo, exameTipo != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}/sub-exames")

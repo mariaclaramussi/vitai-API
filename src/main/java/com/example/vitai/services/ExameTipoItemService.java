@@ -8,6 +8,7 @@ import com.example.vitai.domain.ExameTipo;
 import com.example.vitai.domain.ExameTipoItem;
 import com.example.vitai.domain.SubExameTipo;
 import com.example.vitai.dto.ExameTipoItem.ExameTipoItemIdDTO;
+import com.example.vitai.dto.ExameTipoItem.ExameTipoItemResponseDTO;
 import com.example.vitai.dto.ExameTipoItem.ExameTipoItemResquetDTO;
 import com.example.vitai.repository.ExameTipoItemRepository;
 import com.example.vitai.repository.ExameTipoRepository;
@@ -35,17 +36,23 @@ public class ExameTipoItemService {
         newExameTipoItem.setValorReferencia(exameTipoItem.valorReferencia());
         newExameTipoItem.setMnemonico(exameTipoItem.mnemonico());
 
-        // ainda nao sei se precisa
         ExameTipo exameTipo = exameTipoRepository.findById(exameTipoItem.codExameTipo()).get();
         newExameTipoItem.setCodExameTipo(exameTipo);
 
         SubExameTipo subExameTipo = subExameTipoRepository.findById(exameTipoItem.codSubExameTipo()).get();
         subExameTipo.addExameTipoItem(newExameTipoItem);
-        
+
         newExameTipoItem.setSubExameTipo(subExameTipo);
 
         this.exameTipoItemRepository.save(newExameTipoItem);
 
         return new ExameTipoItemIdDTO(newExameTipoItem.getId());
     }
+
+    public ExameTipoItemResponseDTO getExameTipoItemById(String id) {
+        ExameTipoItem exameTipoItem = exameTipoItemRepository.findById(Integer.parseInt(id)).get();
+
+        return new ExameTipoItemResponseDTO(exameTipoItem);
+    }
+
 }
