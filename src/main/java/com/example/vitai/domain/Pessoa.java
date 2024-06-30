@@ -30,7 +30,7 @@ import lombok.Setter;
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Pessoa")
 public class Pessoa {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,13 +40,10 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 
-    @Column(name = "numero_pulseira", unique = true)
-    private int numeroPulseira;
-
     private String sexo;
 
-    @Column(insertable=false, updatable=false)
-    private String tipo; //medico, atendente, paciente
+    @Column(insertable = false, updatable = false)
+    private String tipo; // medico, atendente, paciente
 
     @Version
     private LocalDateTime timTimestamp;

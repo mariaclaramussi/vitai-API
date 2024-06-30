@@ -3,6 +3,8 @@ package com.example.vitai.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,12 +27,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoItem {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String status; //pendente, liberado, realizado
+    private String status; // pendente, liberado, realizado
 
     @Column(name = "data_realizacao")
     private LocalDateTime dataRealizacao;
@@ -57,13 +59,14 @@ public class PedidoItem {
     @JoinColumn(name = "exame_tipo_id", nullable = false)
     private ExameTipo codExameTipo;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonBackReference
     private Pedido codPedido;
-    
+
     @OneToMany(mappedBy = "codPedidoItem")
     private List<Resultado> resultado;
-    
+
     @Version
     private LocalDateTime timTimestamp;
 }
