@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.vitai.domain.Atendente;
 import com.example.vitai.domain.Medico;
 import com.example.vitai.domain.Paciente;
 import com.example.vitai.domain.Pedido;
@@ -37,17 +36,11 @@ public class PedidoService {
         newPedido.setDataCadastro(pedido.dataCadastro());
         newPedido.setStatus(pedido.status());
 
-        Optional<Pessoa> paciente = pessoaRepository.findById(pedido.codPaciente());
-        if (paciente.isPresent())
-            newPedido.setPaciente((Paciente) paciente.get());
+        Pessoa paciente = pessoaRepository.findById(pedido.codPaciente()).get();
+        newPedido.setPaciente((Paciente) paciente);
 
-        Optional<Pessoa> medico = pessoaRepository.findById(pedido.codMedico());
-        if (medico.isPresent())
-            newPedido.setMedico((Medico) medico.get());
-
-        Optional<Pessoa> atendente = pessoaRepository.findById(pedido.codAtendente());
-        if (atendente.isPresent())
-            newPedido.setAtendente((Atendente) atendente.get());
+        Pessoa medico = pessoaRepository.findById(pedido.codMedico()).get();
+        newPedido.setMedico((Medico) medico);
 
         this.pedidoRepository.save(newPedido);
 
@@ -56,5 +49,9 @@ public class PedidoService {
 
     public Optional<Pedido> getPedidoById(String id) {
         return pedidoRepository.findById(Integer.parseInt(id));
+    }
+
+    public List<Pedido> getPedidosByPacienteId(Integer id) {
+        return pedidoRepository.findAllByPacienteId(id);
     }
 }

@@ -3,7 +3,6 @@ package com.example.vitai.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -49,18 +48,11 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
-    @JsonBackReference
     private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
-    @JsonBackReference
     private Medico medico;
-
-    @ManyToOne
-    @JoinColumn(name = "atendente_id")
-    @JsonBackReference
-    private Atendente atendente;
 
     @OneToMany(mappedBy = "codPedido")
     @JsonManagedReference

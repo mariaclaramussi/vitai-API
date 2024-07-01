@@ -1,6 +1,7 @@
 package com.example.vitai.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +16,7 @@ import com.example.vitai.services.PedidoService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -40,4 +42,18 @@ public class PedidoController {
         return ResponseEntity.created(uri).body(pedidoDTO);
     }
 
+    @GetMapping("paciente/{id}")
+    public List<Pedido> getPedidosByPaciente(@PathVariable String id) {
+        return pedidoService.getPedidosByPacienteId(Integer.parseInt(id));
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Pedido> getPedidosById(@PathVariable String id) {
+        Optional<Pedido> pedido = pedidoService.getPedidoById(id);
+
+        if (pedido.isPresent()) {
+            return pedido;
+        }
+        return null;
+    }
 }

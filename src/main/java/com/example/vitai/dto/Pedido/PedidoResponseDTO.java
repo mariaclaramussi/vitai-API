@@ -14,6 +14,6 @@ public class PedidoResponseDTO {
         this.pedido = new PedidoDTO(pedido.getId(), pedido.getDataPedido(), pedido.getDataPrevisto(),
                 pedido.getStatus(),
                 pedido.getTipoPedido(), pedido.getDataCadastro(), pedido.getPaciente(), pedido.getMedico(),
-                pedido.getAtendente(), pedido.getPedidosItensList());
+                pedido.getPedidosItensList());
     }
 }
