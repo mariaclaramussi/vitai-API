@@ -23,8 +23,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "pedido")
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedido {
