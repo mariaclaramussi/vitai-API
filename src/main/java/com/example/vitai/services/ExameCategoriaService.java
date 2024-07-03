@@ -34,10 +34,10 @@ public class ExameCategoriaService {
         newCategoria.setDescricao(categoriaDTO.descricao());
         newCategoria.setTipoCategoria(categoriaDTO.tipoCategoria());
 
-        Modalidade modalidade = modalidadeRepository.findByNome(categoriaDTO.modalidade());
+        Modalidade modalidade = modalidadeRepository.findById(categoriaDTO.codModalidade()).get();
         newCategoria.setModalidade(modalidade);
 
-        Secao secao = secaoRepository.findByNome(categoriaDTO.secao());
+        Secao secao = secaoRepository.findById(categoriaDTO.codSecao()).get();
         newCategoria.setSecao(secao);
 
         this.exameCategoriaRepository.save(newCategoria);

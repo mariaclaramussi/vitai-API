@@ -1,6 +1,7 @@
 package com.example.vitai.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -60,4 +61,12 @@ public class Pedido {
 
     @Version
     private LocalDateTime timTimestamp;
+
+    public void addPedidoItemToPedido(PedidoItem pedidoItem) {
+        if (pedidosItensList == null)
+            pedidosItensList = new ArrayList<PedidoItem>();
+
+        pedidoItem.setCodPedido(this);
+        pedidosItensList.add(pedidoItem);
+    }
 }

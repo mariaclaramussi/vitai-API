@@ -14,6 +14,7 @@ import com.example.vitai.services.ExameCategoriaService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,7 @@ public class ExameCategoriaController {
     public ResponseEntity<ExameCategoriaResponseDTO> getCategoria(@PathVariable String id) {
         ExameCategoriaResponseDTO categoria = this.exameCategoriaService.getCategoriaById(id);
 
-        return ResponseEntity.ok(categoria);
+        return new ResponseEntity<ExameCategoriaResponseDTO>(categoria,
+                categoria != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }
